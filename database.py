@@ -31,7 +31,6 @@ class RegistroEstoqueHemosc(SQLModel, table=True):
 
 engine = create_engine('sqlite:///hemosc.db', connect_args={'check_same_thread': False})
 
-@st.cache_resource
 def create_and_populate_db():
     print('Criando o banco de dados e tabelas')
     SQLModel.metadata.create_all(engine)
