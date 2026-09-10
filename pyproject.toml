@@ -7,7 +7,12 @@ authors = [
     { name = "Pedro Guardini", email = "pgabiattiguardini@gmail.com" }
 ]
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "bs4>=0.0.2",
+    "pandas>=3.0.5",
+    "sqlmodel>=0.0.42",
+    "streamlit>=1.63.0",
+]
 
 [project.scripts]
 hemosc = "hemosc:main"

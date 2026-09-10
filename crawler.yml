@@ -1,0 +1,40 @@
+name: Raspagem diária do HEMOSC
+
+on:
+  schedule:
+    # 12:00 UTC = 09:00 no horário de Brasília (UTC-3)
+    - cron: '0 12 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configura Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Instala dependências
+        run: pip install .
+
+      - name: Roda o crawler
+        run: python crawler.py
+
+      - name: Comita o banco atualizado (só se algo mudou)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add hemosc.db
+          if git diff --cached --quiet; then
+            echo "Nenhuma mudança no banco, nada para comitar."
+          else
+            git commit -m "chore: Atualização do estoque HEMOSC: $(date -u +'%Y-%m-%d')"
+            git push
+          fi
