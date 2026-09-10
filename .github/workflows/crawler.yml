@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  scrape:
+  crawler:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do repositório
