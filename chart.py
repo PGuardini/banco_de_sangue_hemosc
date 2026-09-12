@@ -30,3 +30,6 @@ def chart():
                     x_label='Dia',
                     y_label='Estado do Estoque',
                 )
+
+def infos():
+    st.link_button('Agenda sua doação','https://www.hemosc.org.br/agende-sua-doacao.html')

@@ -1,3 +1,4 @@
+from datetime import date, datetime, time
 import logging
 import requests
 import sys
@@ -13,6 +14,17 @@ logger = logging.getLogger(__name__)
 def crawler():
     """Abre a página do HEMOSC e grava os estoques de sangue atuais para cada
     tipo sanguíneo"""
+
+    with Session(engine) as s:
+        """ Checa se há registro para o dia atual """
+        hoje = date.today()
+        inicio_dia = datetime.combine(hoje, datetime.min.time())
+        query_date = select(RegistroEstoqueHemosc).where(RegistroEstoqueHemosc.data_do_registro == inicio_dia)
+        registro_diario = s.exec(query_date).first()
+
+        if registro_diario is not None:
+            logger.info('Já há registros do dia de hoje')
+            sys.exit(1)
 
     logger.info('Iniciando o crawler do HEMOSC...')    
 
