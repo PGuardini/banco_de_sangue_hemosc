@@ -1,3 +1,4 @@
+import os
 from datetime import datetime, date
 from typing import List, Optional
 
@@ -29,18 +30,25 @@ class RegistroEstoqueHemosc(SQLModel, table=True):
 
 ### Setup do banco ###
 
-engine = create_engine('sqlite:///hemosc.db', connect_args={'check_same_thread': False})
+caminho_do_banco = 'hemosc.db'
+
+engine = create_engine(f'sqlite:///{caminho_do_banco}', connect_args={'check_same_thread': False})
 
 def create_and_populate_db():
     print('Criando o banco de dados e tabelas')
     SQLModel.metadata.create_all(engine)
-    with Session(engine) as session:
-        total_tipos = session.exec(select(func.count(TipoSanguineo.id))).one()
-        if total_tipos == 0:
-            tipos_sanguineos = ['A-', 'A+', 'B-', 'B+', 'AB+', 'AB-', 'O+', 'O-']
 
-            for tipo in tipos_sanguineos:
-                novo_tipo = TipoSanguineo(tipo_sanguineo=tipo)
-                session.add(novo_tipo)
+ultimo_tempo_de_modificacao = None
 
-            session.commit()
+def refresh_engine_if_needed():
+    global ultimo_tempo_de_modificacao
+
+    try:
+        tempo_de_modificacao_atual = os.path.getmtime(caminho_do_banco)
+    except FileNotFoundError:
+        return
+
+    if tempo_de_modificacao_atual is not None and tempo_de_modificacao_atual != ultimo_tempo_de_modificacao:
+        engine.dispose()
+
+    ultimo_tempo_de_modificacao = tempo_de_modificacao_atual
