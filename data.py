@@ -28,7 +28,3 @@ def load_api_data(url: str) -> pd.DataFrame:
     df = pd.DataFrame(data)
 
     return df
-
-if st.sidebar.button('Atualizar dados agora'):
-    load_api_data.clear()
-    st.rerun()
