@@ -15,7 +15,7 @@ def get_worker_url() -> str:
 
 
 st.cache_data(ttl=1800, show_spinner='Buscando dados do banco de sangue do HEMOSC...')
-def load_api_data(url: str) -> pd.Dataframe:
+def load_api_data(url: str) -> pd.DataFrame:
     resp = requests.get(url, timeout=20)
     data = resp.json()
 
