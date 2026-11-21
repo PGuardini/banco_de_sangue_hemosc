@@ -29,9 +29,6 @@ def main():
     st.subheader('Informações sobre sangue', text_alignment='center')
     infos()
 
-    if st.sidebar.button('Atualizar dados agora'):
-        load_api_data.clear()
-        st.rerun()
 
 if __name__ == "__main__":
     main()
