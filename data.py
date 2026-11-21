@@ -12,11 +12,12 @@ def get_worker_url() -> str:
     except:
         load_dotenv()
         url = os.getenv('WORKER_ESTOQUE_URL')
+        return url
 
 
 st.cache_data(ttl=1800, show_spinner='Buscando dados do banco de sangue do HEMOSC...')
 def load_api_data(url: str) -> pd.DataFrame:
-    resp = requests.get(url, timeout=20)
+    resp = requests.get(url, timeout=20, verify=False)
     data = resp.json()
 
     if not data:

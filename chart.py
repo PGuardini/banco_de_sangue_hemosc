@@ -9,7 +9,7 @@ def chart(df_banco_de_sangue: pd.DataFrame):
 
     try:
         # Conversão de tipo e renomeação de colunas para o gráfico
-        df_banco_de_sangue['data_do_registro'] = pd.to_datetime(df_banco_de_sangue['data_do_registro']).dt.date
+        df_banco_de_sangue['data_do_registro'] = pd.to_datetime(df_banco_de_sangue['data_do_registro'], format='mixed').dt.date
     except KeyError:
         return print('Dataframe vazio')
 
