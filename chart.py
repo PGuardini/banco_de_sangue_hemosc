@@ -46,7 +46,7 @@ def chart(df_banco_de_sangue: pd.DataFrame):
             st.write('Legenda')
             st.caption(
                 """
-                <b style='color:#ff0000;'>Nível 1 - Crítico</b> Estoque baixíssimo, compromete os serviços que necessitam de sangue. Precisa urgentemente de doadores\n
+                <strong style='color:#ff0000;'>Nível 1 - Crítico</strong> Estoque baixíssimo, compromete os serviços que necessitam de sangue. Precisa urgentemente de doadores\n
                 <b style='color:#FF6300;'>Nível 2 - Alerta</b> Estoque Baixo, porém não compromete os serviços que necessitam de sangue. Precisa de doadores\n
                 <b style='color:#FFC300;'>Nível 3 - Reduzido</b> Estoque baixo, porém sem risco. É recomendável doar\n
                 <b style='color:#6BFF2E;'>Nível 4 - Estável</b> Estoque abastecido. É recomendável seguir doando\n
