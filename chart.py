@@ -1,25 +1,12 @@
-from sqlmodel import Session, select
 import pandas as pd
 import streamlit as st
 
-from database import TipoSanguineo, RegistroEstoqueHemosc, engine
 
 @st.fragment
-def chart():
+def chart(df_banco_de_sangue: pd.DataFrame):
     """Retorna um gráfico de linha mostrando o histórico do estado do banco de 
         sangue por tipo sanguíneo"""
 
-    with Session(engine) as s:
-    # Query retorna Data do registro, Estado do estoque e Tipo sanguíneo
-    # para ser transformado em dataframe
-        statement = select(RegistroEstoqueHemosc.data_do_registro, 
-                            RegistroEstoqueHemosc.estado_do_estoque, 
-                            TipoSanguineo.tipo_sanguineo
-                            ).join(TipoSanguineo)
-        estados_do_estoque_atual = s.exec(statement)
-
-
-    df_banco_de_sangue = pd.DataFrame(estados_do_estoque_atual)
     try:
         # Conversão de tipo e renomeação de colunas para o gráfico
         df_banco_de_sangue['data_do_registro'] = pd.to_datetime(df_banco_de_sangue['data_do_registro']).dt.date
@@ -37,6 +24,7 @@ def chart():
                     x_label='Dia',
                     y_label='Estado do Estoque',
                 )
+    
 @st.fragment
 def infos():
     compatibilidade_sanguinea = {

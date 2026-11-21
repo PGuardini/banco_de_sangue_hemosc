@@ -1,15 +1,14 @@
 import streamlit as st
 
 from chart import chart, infos
-from database import create_and_populate_db, refresh_engine_if_needed
+from data import get_worker_url, load_api_data
 
 def main():
-    refresh_engine_if_needed()
-    create_and_populate_db()
-
     st.title('Estado do banco de sangue do HEMOSC')
+    WORKER_ESTOQUE_URL = get_worker_url()
+    api_data = load_api_data(WORKER_ESTOQUE_URL)
 
-    chart()
+    chart(api_data)
     infos()
 
 

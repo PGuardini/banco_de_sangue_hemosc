@@ -8,9 +8,8 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
-    "bs4>=0.0.2",
+    "dotenv>=0.9.9",
     "pandas>=3.0.5",
-    "sqlmodel>=0.0.42",
     "streamlit>=1.63.0",
 ]
 
