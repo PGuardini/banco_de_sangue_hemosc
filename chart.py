@@ -94,7 +94,7 @@ def infos():
 
         st.subheader('Visualização de compatibilidade sanguínea', text_alignment='center')
 
-        tipos_sanguineos = [str(k) for k in compatibilidade_sanguinea.keys()]
+        tipos_sanguineos = ["O-", "O+", "B-", "B+", "A-", "A+", "AB-", "AB+"]
 
         tab1, tab2 = st.tabs(["Rede de Doação (Hierárquica)", "Matriz de Compatibilidade"])
 
